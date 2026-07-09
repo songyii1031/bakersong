@@ -1,26 +1,56 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-cream: #FFF6F0;
+  --color-pink-soft: #FBEAF0;
+  --color-pink-sub: #F4C0D1;
+  --color-pink-point: #D4537E;
+  --color-pink-deep: #993556;
+  --color-beige-cookie: #F5C4B3;
+  --color-brown-text: #4B1528;
+  --color-card-shadow: #F3D3DF;
+
+  --font-heading: var(--font-jua);
+  --font-body: var(--font-gowun-dodum);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-cream);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-brown-text);
+  font-family: var(--font-body);
+}
+
+@layer components {
+  /* 튀어나오는 요소 — 카드 */
+  .shadow-cookie-card {
+    box-shadow:
+      0 5px 0 var(--color-card-shadow),
+      0 8px 16px rgba(75, 21, 40, 0.08);
+  }
+
+  /* 튀어나오는 요소 — 버튼/칩 */
+  .shadow-cookie-btn {
+    box-shadow:
+      0 3px 0 var(--color-pink-deep),
+      inset 0 2px 2px rgba(255, 255, 255, 0.4);
+  }
+
+  /* 파여 있는 요소 — 검색바, 입력 필드 */
+  .shadow-cookie-inset {
+    box-shadow: inset 0 2px 4px rgba(212, 83, 126, 0.12);
+  }
+
+  /* 버튼/칩 눌림 인터랙션 — 모든 버튼에 적용 */
+  .btn-press {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .btn-press:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 var(--color-pink-deep);
+  }
 }
