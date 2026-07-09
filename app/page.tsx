@@ -1,53 +1,32 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Plus, Settings } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
-import { getSignedPhotoUrls } from "@/lib/supabase/photo-url";
-import RecipeCard from "@/components/RecipeCard";
+import { User, LogIn } from "lucide-react";
 
-export default async function HomePage() {
-  const supabase = await createClient();
-  const { data: recipes } = await supabase
-    .from("recipes")
-    .select("id,title,cook_time,rating,main_photo_url")
-    .order("created_at", { ascending: false });
-
-  const photoUrlMap = await getSignedPhotoUrls(
-    supabase,
-    (recipes ?? []).map((r) => r.main_photo_url)
-  );
-
+export default function GatePage() {
   return (
-    <main className="flex-1 px-4 pb-10 pt-6">
-      <header className="mb-6 flex items-start justify-between">
-        <div>
-          <h1 className="font-heading text-2xl text-pink-point">송's 레시피북 🥨</h1>
-          <p className="mt-1 text-sm text-brown-text/70">오늘은 뭘 구워볼까요?</p>
+    <main className="flex flex-1 flex-col items-center justify-center gap-8 px-6">
+      <div className="flex flex-col items-center gap-3">
+        <div className="relative h-20 w-20 overflow-hidden rounded-3xl shadow-cookie-card">
+          <Image src="/icon-512.png" alt="레시피북" fill className="object-cover" priority />
         </div>
+        <h1 className="font-heading text-2xl text-pink-point">송&apos;s 레시피북 🥨</h1>
+        <p className="text-sm text-brown-text/70">누구로 들어갈까요?</p>
+      </div>
+
+      <div className="flex w-full max-w-xs flex-col gap-3">
         <Link
-          href="/settings"
-          className="btn-press flex h-10 w-10 items-center justify-center rounded-full bg-pink-soft shadow-cookie-btn"
+          href="/home"
+          className="btn-press flex w-full items-center justify-center gap-2 rounded-full bg-pink-soft py-3 font-heading text-base text-pink-deep shadow-cookie-btn"
         >
-          <Settings className="h-5 w-5 text-pink-deep" />
+          <User className="h-4 w-4" />
+          게스트로 입장
         </Link>
-      </header>
-
-      <div className="grid grid-cols-2 gap-4">
-        {recipes?.map((recipe) => (
-          <RecipeCard
-            key={recipe.id}
-            recipe={recipe}
-            photoUrl={
-              recipe.main_photo_url ? photoUrlMap.get(recipe.main_photo_url) ?? null : null
-            }
-          />
-        ))}
-
         <Link
-          href="/recipes/new"
-          className="btn-press flex aspect-square flex-col items-center justify-center gap-2 rounded-[18px] border-2 border-dashed border-pink-sub text-pink-deep"
+          href="/login"
+          className="btn-press flex w-full items-center justify-center gap-2 rounded-full bg-pink-point py-3 font-heading text-base text-cream shadow-cookie-btn"
         >
-          <Plus className="h-8 w-8" />
-          <span className="font-heading text-sm">새 레시피 굽기</span>
+          <LogIn className="h-4 w-4" />
+          송&apos;s 입장 (주인장)
         </Link>
       </div>
     </main>

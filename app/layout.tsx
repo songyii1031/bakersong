@@ -14,15 +14,36 @@ const gowunDodum = Gowun_Dodum({
   variable: "--font-gowun-dodum",
 });
 
+const TITLE = "송구르르 레시피북";
+const DESCRIPTION = "나만의 레시피 기록장";
+
 export const metadata: Metadata = {
-  title: "레시피북",
-  description: "나만의 레시피 기록장",
+  metadataBase: new URL("https://bakersong.vercel.app"),
+  title: TITLE,
+  description: DESCRIPTION,
+  appleWebApp: {
+    title: TITLE,
+    statusBarStyle: "default",
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: TITLE,
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  themeColor: "#FFF6F0",
 };
 
 export default function RootLayout({

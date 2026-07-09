@@ -14,6 +14,9 @@ export default async function RecipeDetailPage({
 }) {
   const { id } = await params;
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { data: recipe } = await supabase
     .from("recipes")
@@ -54,17 +57,19 @@ export default async function RecipeDetailPage({
           </div>
         )}
         <Link
-          href="/"
+          href="/home"
           className="btn-press absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-cream/90 shadow-cookie-btn"
         >
           <ChevronLeft className="h-5 w-5 text-brown-text" />
         </Link>
-        <Link
-          href={`/recipes/${recipe.id}/edit`}
-          className="btn-press absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-cream/90 shadow-cookie-btn"
-        >
-          <SquarePen className="h-5 w-5 text-brown-text" />
-        </Link>
+        {user && (
+          <Link
+            href={`/recipes/${recipe.id}/edit`}
+            className="btn-press absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-cream/90 shadow-cookie-btn"
+          >
+            <SquarePen className="h-5 w-5 text-brown-text" />
+          </Link>
+        )}
       </div>
 
       <div className="px-5 pt-5">

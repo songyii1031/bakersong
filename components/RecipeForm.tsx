@@ -225,7 +225,7 @@ export default function RecipeForm({ mode, recipe, initialPhotoUrl, initialBlock
       setDeleting(false);
       return;
     }
-    router.push("/");
+    router.push("/home");
     router.refresh();
   }
 
