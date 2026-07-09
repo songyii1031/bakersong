@@ -3,6 +3,7 @@ import { Plus, Settings, LogIn } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getSignedPhotoUrls } from "@/lib/supabase/photo-url";
 import RecipeCard from "@/components/RecipeCard";
+import Footer from "@/components/Footer";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -21,8 +22,8 @@ export default async function HomePage() {
   );
 
   return (
-    <main className="flex-1 px-4 pb-10 pt-6">
-      <header className="mb-6 flex items-start justify-between">
+    <main className="flex-1 pt-6">
+      <header className="mb-6 flex items-start justify-between px-4">
         <div>
           <h1 className="font-heading text-2xl text-pink-point">송&apos;s 레시피북 🥨</h1>
           <p className="mt-1 text-sm text-brown-text/70">오늘은 뭘 구워볼까요?</p>
@@ -45,7 +46,7 @@ export default async function HomePage() {
         )}
       </header>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 px-4 pb-10">
         {recipes?.map((recipe) => (
           <RecipeCard
             key={recipe.id}
@@ -68,10 +69,12 @@ export default async function HomePage() {
       </div>
 
       {(!recipes || recipes.length === 0) && (
-        <p className="mt-10 text-center text-sm text-brown-text/50">
+        <p className="px-4 text-center text-sm text-brown-text/50">
           아직 구운 레시피가 없어요 🍪
         </p>
       )}
+
+      <Footer />
     </main>
   );
 }
