@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Jua, Gowun_Dodum } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const jua = Jua({
@@ -54,6 +55,12 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${jua.variable} ${gowunDodum.variable} h-full antialiased`}>
       <body className="min-h-dvh flex flex-col bg-cream text-brown-text">
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1274812993387845"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
         {children}
       </body>
     </html>
